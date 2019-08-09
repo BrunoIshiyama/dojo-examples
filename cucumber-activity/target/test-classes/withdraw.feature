@@ -1,0 +1,54 @@
+@withdraw
+Feature: Withdraw
+  As an user I want to withdraw an amount of money
+
+  @sufficientFundsAndValidCard
+  Scenario Outline: Account has sufficient funds and the card is valid
+    Given the card is valid
+    And the account balance is "<amount>"
+    And the machine contains "<withdrawAmount>"
+    When the Account Holder requests "<withdrawAmount>"
+    Then the ATM should dispense "<withdrawAmount>"
+    And the account balance should be "<balance>"
+    And the card should be returned
+
+    Examples: 
+      | amount | withdrawAmount | balance |
+      |    100 |             20 |      80 |
+      |     50 |             50 |       0 |
+
+  #@insufficientFundsAndValidCard
+  #Scenario Outline: Account has insufficient funds and the card is valid
+    #Given the card is valid
+    #And the account balance is "<amount>"
+    #And the machine contains "<withdrawAmount>"
+    #When the Account Holder requests "<withdrawAmount>"
+    #Then the ATM should dispense "<withdrawAmount>"
+    #And the account balance should be "<amount>"
+    #And the card should be returned
+#
+    #Examples: 
+      #| amount | withdrawAmount |
+      #|    100 |            110 |
+      #|     50 |             70 |
+
+  #@sufficientFundsAndValidCardAndNotEnough
+  #Scenario Outline: Account has sufficient funds and the card is valid, but the ATM does not have enough money
+    #Given the card is valid
+    #And the account balance is "<amount>"
+    #And the machine does not contain "<amount>"
+    #When the Account Holder requests "<withdrawAmount>"
+    #Then a message "The ATM does not contain enough money" is displayed
+    #And the account balance should be "<amount>"
+    #And the card should be returned
+#
+    #Examples: 
+      #| amount | withdrawAmount | 
+      #|    100 |             20 |
+      #|     50 |             50 |
+#
+#
+  #@invalidCard
+  #Scenario: The card is invalid
+    #Given the card is invalid
+    #Then the card should be returned
